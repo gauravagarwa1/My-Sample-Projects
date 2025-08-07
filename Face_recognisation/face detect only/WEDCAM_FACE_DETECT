@@ -1,0 +1,36 @@
+#importing open cv library
+import cv2
+
+#for random color
+from random import randrange as r
+
+#dataset
+traindData=cv2.CascadeClassifier('Face.xml')
+
+#start a webcam
+while True:
+    webcam=cv2.VideoCapture(0)
+
+    #read the frame from webcam
+    success,frame=webcam.read()
+
+    #Coversion to black and white (grayscale)
+    grayimg=cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+
+    #detect face
+    facecoordinate=traindData.detectMultiScale(grayimg)
+
+    for x,y,w,h in facecoordinate:
+        cv2.rectangle(frame,(x,y),(x+w,y+h),(r(0,255),r(0,255),r(0,255)),2)
+
+    #display image
+    cv2.imshow('Multiple Person',frame)
+
+    #pause the execution of the program until any key is pressed 
+    key=cv2.waitKey(1) #this 1 is used to change the frame automatically after every millisecond
+    if(key==81 or key ==113):
+             break
+
+webcam.release
+
+print ('END OF PROGRAM')

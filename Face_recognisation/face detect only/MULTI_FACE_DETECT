@@ -1,0 +1,27 @@
+#importing open cv library
+import cv2
+#for random color
+from random import randrange as r
+#dataset
+traindData=cv2.CascadeClassifier('Face.xml')
+
+#choose a image
+img=cv2.imread('two.jpg')
+
+#Coversion to black and white (grayscale)
+grayimg=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+#detect face
+facecoordinate=traindData.detectMultiScale(grayimg)
+
+for x,y,w,h in facecoordinate:
+    cv2.rectangle(img,(x,y),(x+w,y+h),(r(0,255),r(0,255),r(0,255)),2)
+
+#display image
+cv2.imshow('Multiple Person',img)
+
+#pause the execution of the program until any key is pressed 
+cv2.waitKey()
+
+
+print ('end of program')
